@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Advanced Hacking Mode</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        body {
+            font-family: 'Orbitron', monospace;
+            background: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            color: lime;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px lime;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1.5s ease-in-out;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            z-index: 2;
+        }
+        .hidden {
+            display: none;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .matrix {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .matrix span {
+            position: absolute;
+            top: -50px;
+            color: lime;
+            font-size: 16px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="matrix" id="matrix"></div>
+
+    <audio id="keyboardSound" src="https://assets.mixkit.co/active_storage/sfx/2953/2953-preview.mp3"></audio>
+    <audio id="accessSound" src="https://assets.mixkit.co/active_storage/sfx/1127/1127-preview.mp3"></audio>
+
+    <div class="container" id="container">
+        <p id="clickText">[ SYSTEM LOCKED - CLICK TO INITIATE HACK ]</p>
+        <h1 id="hackedText" class="hidden">█ H █ A █ C █ K █ I █ N █ G █ ...</h1>
+        <h1 id="accessGranted" class="hidden">ACCESS GRANTED</h1>
+        <div id="info" class="hidden">
+            <h1 id="realName">Sude Nur Kibaroğlu</h1>
+            <p id="studentId">Student ID: 21050111059</p>
+            <p id="description">I was born in 2002 in Ankara. I am a Computer Engineering student. I enrolled at AYBÜ in 2021. I have a deep passion for technology, software development, and problem-solving. I enjoy learning about new programming languages, artificial intelligence, and game development.</p>
+        </div>
+    </div>
+
+    <script>
+        let isHacked = false;
+        document.getElementById('container').addEventListener('click', hackEffect);
+
+        function hackEffect() {
+            if (isHacked) return;
+            isHacked = true;
+
+            document.getElementById('clickText').classList.add('hidden');
+            document.getElementById('hackedText').classList.remove('hidden');
+            document.getElementById('keyboardSound').play();
+
+            setTimeout(() => {
+                document.getElementById('hackedText').classList.add('hidden');
+                document.getElementById('accessGranted').classList.remove('hidden');
+                document.getElementById('accessSound').play();
+
+                setTimeout(() => {
+                    document.getElementById('accessGranted').classList.add('hidden');
+                    document.getElementById('info').classList.remove('hidden');
+                }, 1000);
+            }, 2000);
+        }
+
+        function createMatrix() {
+            const matrix = document.getElementById('matrix');
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            for (let i = 0; i < 100; i++) {
+                const span = document.createElement('span');
+                span.textContent = characters.charAt(Math.floor(Math.random() * characters.length));
+                span.style.left = Math.random() * 100 + 'vw';
+                span.style.animationDuration = Math.random() * 2 + 3 + 's';
+                span.style.animationDelay = Math.random() * 2 + 's';
+                matrix.appendChild(span);
+            }
+        }
+        createMatrix();
+    </script>
+</body>
+</html>
